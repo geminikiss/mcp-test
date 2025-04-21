@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './App.scss';
 
 function App() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
