@@ -36,3 +36,104 @@
     transform: rotate(360deg);
   }
 }
+
+.game {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  padding: 20px;
+  gap: 40px;
+}
+
+.scores {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.x-score {
+  color: red;
+}
+
+.o-score {
+  color: green;
+}
+
+.current-player {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.restart-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.restart-button:hover {
+  background-color: #45a049;
+}
+
+.game-board {
+  margin-right: 20px;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #333;
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #999;
+  background: #fff;
+  padding: 0;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.square:hover {
+  background: #f0f0f0;
+}
+
+.status {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.game-info {
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.x-mark {
+  color: red;
+}
+
+.o-mark {
+  color: green;
+}
