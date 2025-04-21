@@ -45,51 +45,10 @@
   gap: 40px;
 }
 
-.scores {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #f8f8f8;
-}
-
-.score {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-.x-score {
-  color: red;
-}
-
-.o-score {
-  color: green;
-}
-
-.current-player {
-  font-size: 18px;
-  margin: 15px 0;
-}
-
-.restart-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.restart-button:hover {
-  background-color: #45a049;
-}
-
-.game-board {
-  margin-right: 20px;
+.game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .board {
@@ -119,21 +78,142 @@
   background: #f0f0f0;
 }
 
+.scores {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 2px solid #333;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.x-mark,
+.x-score {
+  color: red;
+}
+
+.o-mark,
+.o-score {
+  color: green;
+}
+
+.current-player {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.restart-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.restart-button:hover {
+  background-color: #45a049;
+}
+
 .status {
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: bold;
 }
 
-.game-info {
-  margin-left: 20px;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  min-width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.modal-button {
+  padding: 10px 20px;
   font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-.x-mark {
-  color: red;
+.continue {
+  background-color: #4CAF50;
+  color: white;
 }
 
-.o-mark {
-  color: green;
+.continue:hover {
+  background-color: #45a049;
+}
+
+.end-game {
+  background-color: #f44336;
+  color: white;
+}
+
+.end-game:hover {
+  background-color: #da190b;
+}
+
+.new-game {
+  background-color: #2196F3;
+  color: white;
+}
+
+.new-game:hover {
+  background-color: #0b7dda;
+}
+
+.final-scores {
+  margin: 20px 0;
+}
+
+.winner-announcement {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #333;
+}
+
+.draw-result {
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
 }

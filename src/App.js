@@ -6,6 +6,9 @@ function App() {
   const [currentMove, setCurrentMove] = useState(0);
   const [isXNext, setIsXNext] = useState(true);
   const [scores, setScores] = useState({ X: 0, O: 0 });
+  const [showModal, setShowModal] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const [winner, setWinner] = useState(null);
   const currentSquares = history[currentMove];
 
   function handlePlay(nextSquares) {
@@ -19,17 +22,30 @@ function App() {
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0);
     setIsXNext(true);
+    setShowModal(false);
   }
 
-  function updateScore(winner) {
-    if (winner) {
+  function updateScore(result) {
+    if (result === 'draw') {
+      setWinner(null);
+      setShowModal(true);
+    } else if (result) {
       setScores(prev => ({
         ...prev,
-        [winner]: prev[winner] + 1
+        [result]: prev[result] + 1
       }));
-      // Restart game after a delay
-      setTimeout(handleRestart, 1500);
+      setWinner(result);
+      setShowModal(true);
     }
+  }
+
+  function handleEndGame() {
+    setGameEnded(true);
+    setShowModal(false);
+  }
+
+  function handleContinue() {
+    handleRestart();
   }
 
   return (
@@ -39,7 +55,6 @@ function App() {
           <div className="score x-score">Player X: {scores.X}</div>
           <div className="score o-score">Player O: {scores.O}</div>
         </div>
-        <div className="current-player">Current Player: {isXNext ? "X" : "O"}</div>
         <button className="restart-button" onClick={handleRestart}>Restart Game</button>
       </div>
       <div className="game-board">
@@ -48,17 +63,70 @@ function App() {
           xIsNext={isXNext} 
           onPlay={handlePlay}
           onWin={updateScore}
+          gameEnded={gameEnded}
         />
       </div>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Game Result</h2>
+            {winner ? (
+              <p className={winner === 'X' ? 'x-mark' : 'o-mark'}>
+                Player {winner} Wins!
+              </p>
+            ) : (
+              <p className="draw-result">It's a Draw!</p>
+            )}
+            <div className="modal-buttons">
+              <button className="modal-button continue" onClick={handleContinue}>
+                Continue
+              </button>
+              <button className="modal-button end-game" onClick={handleEndGame}>
+                End Game
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {gameEnded && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Final Results</h2>
+            <div className="final-scores">
+              <p className="x-mark">Player X: {scores.X} wins</p>
+              <p className="o-mark">Player O: {scores.O} wins</p>
+              <p className="winner-announcement">
+                {scores.X > scores.O ? "Player X Wins the Game!" :
+                 scores.O > scores.X ? "Player O Wins the Game!" :
+                 "It's a Tie!"}
+              </p>
+            </div>
+            <div className="modal-buttons">
+              <button 
+                className="modal-button new-game" 
+                onClick={() => {
+                  setGameEnded(false);
+                  setScores({ X: 0, O: 0 });
+                  handleRestart();
+                }}
+              >
+                New Game
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function Board({ squares, xIsNext, onPlay, onWin }) {
+function Board({ squares, xIsNext, onPlay, onWin, gameEnded }) {
   const BOARD_SIZE = 3;
 
   function handleClick(i) {
-    if (squares[i] || calculateWinner(squares)) return;
+    if (squares[i] || calculateWinner(squares) || gameEnded) return;
     
     const nextSquares = squares.slice();
     nextSquares[i] = xIsNext ? "X" : "O";
@@ -69,7 +137,7 @@ function Board({ squares, xIsNext, onPlay, onWin }) {
       onWin(winner);
     } else if (!nextSquares.includes(null)) {
       // It's a draw
-      setTimeout(() => onPlay(Array(9).fill(null)), 1500);
+      onWin('draw');
     }
   }
 
